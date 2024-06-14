@@ -4,6 +4,9 @@
  */
 package Login;
 
+import MainPage.AdminMainPage;
+import MainPage.StudentMainPage;
+import SignUp.SignUpPage;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.mycompany.evalsystem.EvalSystem;
 import java.awt.Cursor;
@@ -98,6 +101,11 @@ public class LoginPage extends javax.swing.JFrame {
         signupHyperlink.setForeground(new java.awt.Color(0, 0, 204));
         signupHyperlink.setText("<html> <u>Sign up here</u> </html>");
         signupHyperlink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        signupHyperlink.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                signupHyperlinkMouseClicked(evt);
+            }
+        });
 
         jLabel5.setBackground(new java.awt.Color(0, 102, 204));
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 48)); // NOI18N
@@ -184,14 +192,38 @@ public class LoginPage extends javax.swing.JFrame {
             rs = pst.executeQuery();
             
             if (!rs.next()) {
-                JOptionPane.showMessageDialog(null, "Please enter a valid username or password", "Invalid Login", JOptionPane.ERROR_MESSAGE);
+                try {
+                    String adminQuery = "SELECT * FROM Admin_Login WHERE Admin_Username = ? AND Password = ?";
+                    pst = conn.prepareStatement(adminQuery);
+                    pst.setString(1, studentNum);
+                    pst.setString(2, studentPass);
+                    if (rs.next()) {
+                        JOptionPane.showMessageDialog(null, "ADMIN LOGIN SUCCESSFUL");
+                        AdminMainPage adminPage = new AdminMainPage();
+                        adminPage.setVisible(true);
+                        this.dispose();
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(null, "Account not found");
+                    }
+                } catch (Exception e) {
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Login Successful", "Login Successful", JOptionPane.INFORMATION_MESSAGE);
+                StudentMainPage studentPage = new StudentMainPage();
+                studentPage.setVisible(true);
+                this.dispose();
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void signupHyperlinkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signupHyperlinkMouseClicked
+        SignUpPage newSignupPage = new SignUpPage();
+        newSignupPage.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_signupHyperlinkMouseClicked
 
     /**
      * @param args the command line arguments

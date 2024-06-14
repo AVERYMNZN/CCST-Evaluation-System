@@ -207,6 +207,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="&lt;html&gt; &lt;u&gt;Sign up here&lt;/u&gt; &lt;/html&gt;"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="signupHyperlinkMouseClicked"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="signupHyperlink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));"/>
               </AuxValues>
