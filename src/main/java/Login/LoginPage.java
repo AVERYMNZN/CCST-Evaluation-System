@@ -195,8 +195,9 @@ public class LoginPage extends javax.swing.JFrame {
                 try {
                     String adminQuery = "SELECT * FROM Admin_Login WHERE Admin_Username = ? AND Password = ?";
                     pst = conn.prepareStatement(adminQuery);
-                    pst.setString(1, studentNum);
-                    pst.setString(2, studentPass);
+                    pst.setString(1, (String) studentNumField.getText());
+                    pst.setString(2, (String) studentPasswordField.getText());
+                    rs = pst.executeQuery();
                     if (rs.next()) {
                         JOptionPane.showMessageDialog(null, "ADMIN LOGIN SUCCESSFUL");
                         AdminMainPage adminPage = new AdminMainPage();
